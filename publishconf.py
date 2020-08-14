@@ -1,18 +1,12 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*- #
-from __future__ import unicode_literals
+#
+# publishconf.py
+#
 
-# This file is only used if you use `make publish` or
-# explicitly specify it as your config file.
-
-import os
-import sys
-sys.path.append(os.curdir)
 from pelicanconf import *
 
 # Para producción los URLs son absolutos
-SITEURL = 'https://www.pjecz.gob.mx'
-SITELOGO = 'https://www.pjecz.gob.mx/theme/images/pjecz.png'
+SITEURL = 'https://conatrib.pjecz.gob.mx'
+SITELOGO = 'https://conatrib.pjecz.gob.mx/theme/images/conatrib.jpg'
 RELATIVE_URLS = False
 
 # Para producción se activa la generacion de feeds
@@ -21,8 +15,8 @@ FEED_ALL_ATOM = 'feeds/all.atom.xml'
 FEED_ALL_RSS = 'feeds/all.rss.xml'
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
-CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
-CATEGORY_FEED_RSS = 'feeds/{slug}.rss.xml'
+CATEGORY_FEED_ATOM = None
+CATEGORY_FEED_RSS = None
 TAG_FEED_ATOM = None
 TAG_FEED_RSS = None
 TRANSLATION_FEED_ATOM = None
@@ -30,9 +24,15 @@ TRANSLATION_FEED_RSS = None
 FEED_MAX_ITEMS = 24
 RSS_FEED_SUMMARY_ONLY = True
 
+# Paginacion
+# DEFAULT_PAGINATION = False
+DEFAULT_PAGINATION = True
+DEFAULT_PAGINATION = 12
+DEFAULT_ORPHANS = 2
+
 # Pelican plugins
 PLUGIN_PATHS = ['plugins']
-PLUGINS = ['pelican_javascript', 'sitemap']
+PLUGINS = ['sitemap']
 SITEMAP = {
     'format': 'xml',
     'priorities': {

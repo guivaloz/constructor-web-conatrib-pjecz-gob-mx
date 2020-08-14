@@ -12,3 +12,4 @@ __pycache__
 *.xlsx
 *.zip
 output
+settings.ini
