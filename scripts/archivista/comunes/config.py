@@ -1,6 +1,7 @@
 import click
 import configparser
 from pathlib import Path
+from comunes.funciones import validar_rama
 
 
 class Config(object):
@@ -17,25 +18,28 @@ class Config(object):
         self.insumos_ruta = ''
         self.salida_ruta = ''
 
-    def cargar_configuraciones(self):
+    def obtener_ramas(self):
+        settings = configparser.ConfigParser()
+        settings.read('settings.ini')
+        return(settings.sections())
+
+    def cargar_configuraciones(self, rama):
         """ Cargar configuraciones en settings.ini """
-        if self.rama == '':
+        if rama == '':
             raise Exception('ERROR: Faltó definir la rama.')
+        self.rama = validar_rama(rama)
         settings = configparser.ConfigParser()
         settings.read('settings.ini')
         try:
-            self.almacen_frio_url = settings['global']['almacen_frio']
-            self.descargables_extensiones = settings['global']['descargables_extensiones'].split(',')
-            self.fecha_por_defecto = settings['global']['fecha_por_defecto']
-            self.imagenes_extensiones = settings['global']['imagenes_extensiones'].split(',')
-            self.pelican_ruta = settings['global']['pelican_ruta']
-            self.nextcloud_ruta = settings['global']['nextcloud_ruta']
+            self.almacen_frio_url = settings['DEFAULT']['almacen_frio']
+            self.descargables_extensiones = settings['DEFAULT']['descargables_extensiones'].split(',')
+            self.fecha_por_defecto = settings['DEFAULT']['fecha_por_defecto']
+            self.imagenes_extensiones = settings['DEFAULT']['imagenes_extensiones'].split(',')
+            self.pelican_ruta = settings['DEFAULT']['pelican_ruta']
+            self.nextcloud_ruta = settings['DEFAULT']['nextcloud_ruta']
             self.titulo = settings[self.rama]['titulo']
         except KeyError:
             raise Exception(f'ERROR: Falta configuración en settings.ini para la rama {self.rama}')
-
-    def validar_configuraciones(self):
-        """ Validar configuraciones """
         # Validar la ruta de insumos desde Archivista
         self.insumos_ruta = Path(f'{self.nextcloud_ruta}/{self.titulo}')
         if not self.insumos_ruta.exists() or not self.insumos_ruta.is_dir():

@@ -8,6 +8,7 @@ class Rama(Base):
 
     def __init__(self, config):
         super().__init__(config, config.insumos_ruta)
+        self.secciones = []
         self.paginas = []
 
     def rastrear_directorios(self, ruta):
@@ -22,29 +23,28 @@ class Rama(Base):
         super().alimentar()
         if self.ya_alimentado is False:
             # Rastrear directorios en la rama
-            for directorio in self.rastrear_directorios(Path(self.config.insumos_ruta)):
+            for directorio in self.rastrear_directorios(self.config.insumos_ruta):
                 posible_md_nombre = str(directorio.parts[-1]) + '.md'
                 posible_md_ruta = Path(str(directorio), posible_md_nombre)
                 if posible_md_ruta.exists() and posible_md_ruta.is_file():
-                    pagina = Pagina(self.config, str(directorio))
+                    # Acumular páginas
+                    pagina = Pagina(self.config, directorio)
                     pagina.alimentar()
                     self.paginas.append(pagina)
-            # Levantar la bandera
+                else:
+                    # Acumular secciones de descargas
+                    pass
+            # Levantar bandera
             self.ya_alimentado = True
 
     def contenido(self):
-        """ Elaborar contenido """
-        return('Contenido pendiente.')
+        """ Contenido """
+        pass
 
     def __repr__(self):
-        if self.ya_alimentado:
-            lineas = []
-            if self.existe_archivo_md():
-                lineas += [f'<Rama> {self.archivo_md_nombre}']
-            else:
-                lineas += ['<Rama>']
-            if len(self.paginas) > 0:
-                lineas += ['  ' + repr(pagina) for pagina in self.paginas]
-            return('\n'.join(lineas))
-        else:
-            return(f'<Rama> AVISO: No se ha alimentado')
+        lineas = [f'<Rama> {self.relativo}']
+        if len(self.secciones) > 0:
+            lineas += ['  ' + repr(seccion) for seccion in self.secciones]
+        if len(self.paginas) > 0:
+            lineas += ['  ' + repr(pagina) for pagina in self.paginas]
+        return('\n'.join(lineas))

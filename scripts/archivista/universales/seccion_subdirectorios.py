@@ -1,8 +1,8 @@
 from pathlib import Path
 
 
-class Descargable(object):
-    """ Descargable """
+class SeccionSubdirectorios(object):
+    """ Seccion Subdirectorios """
 
     def __init__(self, config, ruta):
         self.config = config
@@ -10,12 +10,16 @@ class Descargable(object):
             self.ruta = Path(ruta)
         else:
             self.ruta = ruta
-        self.nombre = self.ruta.name  # Definir nombre del descargable
         self.ya_alimentado = False
+        self.mensaje = 'NO ALIMENTADO'
+        self.contenidos = None
 
     def alimentar(self):
-        if self.ya_alimentado is False:
-            self.ya_alimentado = True  # Levantar la bandera
+        pass
+
+    def contenido(self):
+        pass
 
     def __repr__(self):
-        return(f'<Descargable> {self.nombre}')
+        lineas = ['<SeccionSubdirectorios>']
+        return('\n'.join(lineas))
