@@ -4,8 +4,9 @@ from universales.base import Base
 class Pagina(Base):
     """ Pagina """
 
-    def __init__(self, config, ruta):
+    def __init__(self, config, ruta, nivel):
         super().__init__(config, ruta)
+        self.nivel = nivel
         self.secciones = []
 
     def alimentar(self):
@@ -22,5 +23,5 @@ class Pagina(Base):
     def __repr__(self):
         lineas = [f'<Pagina> {self.relativo}']
         if len(self.secciones) > 0:
-            lineas += ['    ' + repr(seccion) for seccion in self.secciones]
-        return('\n'.join(lineas))
+            lineas += [repr(seccion) for seccion in self.secciones]
+        return('  ' * self.nivel + '\n'.join(lineas))

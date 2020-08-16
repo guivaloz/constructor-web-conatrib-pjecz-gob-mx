@@ -2,8 +2,8 @@ from pathlib import Path
 from universales.descargable import Descargable
 
 
-class SeccionDescargables(object):
-    """ Seccion Descargables """
+class Subdirectorio(object):
+    """ Subdirectorio """
 
     def __init__(self, config, ruta, nivel):
         self.config = config
@@ -12,9 +12,9 @@ class SeccionDescargables(object):
         else:
             self.ruta = ruta
         self.nivel = nivel
+        self.nombre = self.ruta.parts[-1]
+        self.descargables = None
         self.ya_alimentado = False
-        self.contenidos = None
-        self.mensaje = 'NO ALIMENTADO'
 
     def alimentar(self):
         """ Alimentar """
@@ -25,23 +25,18 @@ class SeccionDescargables(object):
                 items.extend(list(self.ruta.glob(f'*.{extension}')))
             # ¿Hay o no hay?
             if len(items) > 0:
-                self.contenidos = []
+                self.descargables = []
                 for item in items:
                     descargable = Descargable(self.config, item, self.nivel + 1)
                     descargable.alimentar()
-                    self.contenidos.append(descargable)
-                self.mensaje = 'Descargar'
+                    self.descargables.append(descargable)
             else:
-                self.contenidos = None
-                self.mensaje = 'NO HAY DESCARGABLES'
+                self.descargables = None
             # Levantar la bandera
             self.ya_alimentado = True
 
-    def contenido(self):
-        pass
-
     def __repr__(self):
-        lineas = [f'<SeccionDescargables> {self.mensaje}']
-        if self.contenidos is not None:
-            lineas += [repr(contenido) for contenido in self.contenidos]
+        lineas = [f'<Subdirectorio> {self.nombre}']
+        if self.descargables is not None:
+            lineas += [repr(descargable) for descargable in self.descargables]
         return('  ' * self.nivel + '\n'.join(lineas))

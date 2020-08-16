@@ -4,15 +4,16 @@ from pathlib import Path
 class SeccionInicial(object):
     """ Seccion Inicial """
 
-    def __init__(self, config, ruta):
+    def __init__(self, config, ruta, nivel):
         self.config = config
         if isinstance(ruta, str):
             self.ruta = Path(ruta)
         else:
             self.ruta = ruta
+        self.nivel = nivel
         self.ya_alimentado = False
-        self.mensaje = 'NO ALIMENTADO'
         self.contenidos = None
+        self.mensaje = 'NO ALIMENTADO'
 
     def alimentar(self):
         """ Alimentar """
@@ -37,4 +38,4 @@ class SeccionInicial(object):
         pass
 
     def __repr__(self):
-        return(f'<SeccionInicial> {self.mensaje}')
+        return('  ' * self.nivel + f'<SeccionInicial> {self.mensaje}')
