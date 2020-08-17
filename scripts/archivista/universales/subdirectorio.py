@@ -35,6 +35,10 @@ class Subdirectorio(object):
             # Levantar la bandera
             self.ya_alimentado = True
 
+    def contenido(self):
+        """ Contenido """
+        return('Hola Mundo!')
+
     def __repr__(self):
         lineas = [f'<Subdirectorio> {self.nombre}']
         if self.descargables is not None:

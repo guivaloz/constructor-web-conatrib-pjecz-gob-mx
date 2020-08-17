@@ -40,7 +40,14 @@ class Rama(Base):
 
     def contenido(self):
         """ Contenido """
-        pass
+        return('Hola Mundo!')
+
+    def crear(self):
+        """ Crear """
+        lineas = [super().crear()]
+        if len(self.paginas) > 0:
+            lineas += [pagina.crear() for pagina in self.paginas]
+        return('  ' * self.nivel + '\n'.join(lineas))
 
     def __repr__(self):
         lineas = [f'<Rama> {self.relativo}']

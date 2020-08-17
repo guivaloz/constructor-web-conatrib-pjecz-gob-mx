@@ -18,7 +18,7 @@ class Pagina(Base):
 
     def contenido(self):
         """ Contenido """
-        pass
+        return('Hola Mundo!')
 
     def __repr__(self):
         lineas = [f'<Pagina> {self.relativo}']

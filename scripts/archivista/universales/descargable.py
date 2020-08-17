@@ -19,5 +19,9 @@ class Descargable(object):
         if self.ya_alimentado is False:
             self.ya_alimentado = True  # Levantar la bandera
 
+    def contenido(self):
+        """ Contenido """
+        return('Hola Mundo!')
+
     def __repr__(self):
         return('  ' * self.nivel + f'<Descargable> {self.nombre}')

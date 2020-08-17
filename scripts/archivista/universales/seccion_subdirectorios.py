@@ -47,7 +47,7 @@ class SeccionSubdirectorios(object):
             self.ya_alimentado = True
 
     def contenido(self):
-        pass
+        return('Hola Mundo!')
 
     def __repr__(self):
         lineas = [f'<SeccionSubdirectorios> {self.mensaje}']
