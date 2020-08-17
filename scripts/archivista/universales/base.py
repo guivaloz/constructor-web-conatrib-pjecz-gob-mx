@@ -43,13 +43,13 @@ class Base(object):
 
     def contenido(self):
         """ Contenido """
-        return('')
+        return('Hola Mundo!')
 
     def preparar_plantilla(self):
         """ Preparar la plantilla Jinja2 """
         if self.plantilla is None:
             # Preparar plantilla
-            plantillas_ruta = Path(self.config.pelican_ruta, 'scripts/archivista/universales/plantillas')
+            plantillas_ruta = Path(self.config.plantillas_ruta)
             if not(plantillas_ruta.exists() or plantillas_ruta.is_dir()):
                 raise(Exception('ERROR: No existe el directorio de plantillas'))
             plantillas_env = Environment(
@@ -57,7 +57,7 @@ class Base(object):
                 trim_blocks=True,
                 lstrip_blocks=True,
             )
-            self.plantilla = plantillas_env.get_template('pelican.md.jinja2')
+            self.plantilla = plantillas_env.get_template(self.config.plantilla)
 
     def crear(self):
         """ Crear archivo md """
