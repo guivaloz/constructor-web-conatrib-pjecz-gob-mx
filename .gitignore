@@ -13,3 +13,8 @@ __pycache__
 *.zip
 output
 settings.ini
+content/actividades
+content/acuerdos
+content/biblioteca-digital
+content/conocenos
+content/sentencias
