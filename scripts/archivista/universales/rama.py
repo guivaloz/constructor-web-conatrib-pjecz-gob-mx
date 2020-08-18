@@ -9,7 +9,6 @@ class Rama(Base):
     def __init__(self, config):
         super().__init__(config, config.insumos_ruta)
         self.nivel = 0
-        self.secciones = []
         self.paginas = []
 
     def rastrear_directorios(self, ruta):
@@ -37,10 +36,6 @@ class Rama(Base):
                     pass
             # Levantar bandera
             self.ya_alimentado = True
-
-    def contenido(self):
-        """ Contenido """
-        return('Hola Mundo!')
 
     def crear(self):
         """ Crear """

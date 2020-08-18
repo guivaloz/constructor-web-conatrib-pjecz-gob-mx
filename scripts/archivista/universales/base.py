@@ -17,6 +17,7 @@ class Base(object):
             self.ruta = ruta
         self.nivel = 0
         self.ya_alimentado = False
+        self.secciones = []
         self.plantilla = None
         # Definir la ruta relativa donde estamos respecto al depósito
         self.relativo = str(self.ruta)[len(str(self.config.nextcloud_ruta)):]
@@ -42,8 +43,11 @@ class Base(object):
             # Sección Final
 
     def contenido(self):
-        """ Contenido """
-        return('Hola Mundo!')
+        """ Entregar contenido que es texto markdown """
+        if len(self.secciones) > 0:
+            return('\n'.join([seccion.contenido() for seccion in self.secciones]))
+        else:
+            return('NO HAY CONTENIDO')  # Esto no debería entregarse
 
     def preparar_plantilla(self):
         """ Preparar la plantilla Jinja2 """
@@ -68,6 +72,7 @@ class Base(object):
             title='Título',
             slug='slug',
             summary='resumen',
+            category='Categoría',
             tags='etiquetas',
             url='url',
             save_as='guardar_como_ruta',

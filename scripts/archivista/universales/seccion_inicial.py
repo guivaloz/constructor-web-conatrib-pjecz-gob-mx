@@ -35,8 +35,12 @@ class SeccionInicial(object):
             self.ya_alimentado = True
 
     def contenido(self):
-        """ Elaborar contenido """
-        return('Hola Mundo!')
+        """ Entregar el contenido que es el markdown que está en el archivo """
+        if self.contenidos is not None:
+            with open(str(self.contenidos), 'r') as puntero:
+                return(puntero.read())
+        else:
+            return('SIN CONTENIDO')  # Esto no debería entregarse
 
     def __repr__(self):
         return('  ' * self.nivel + f'<SeccionInicial> {self.mensaje}')

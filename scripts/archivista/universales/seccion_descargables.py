@@ -38,7 +38,16 @@ class SeccionDescargables(object):
             self.ya_alimentado = True
 
     def contenido(self):
-        return('Hola Mundo!')
+        """ Entregar el contenido que es texto markdown con las descargas """
+        if self.contenidos is not None:
+            lineas = []
+            lineas.append(f'## {self.mensaje}')
+            lineas.append('')
+            lineas.extend(descargable.contenido() for descargable in self.contenidos)
+            lineas.append('')
+            return('\n'.join(lineas))
+        else:
+            return('SIN DESCARGABLES')  # Esto no debería entregarse
 
     def __repr__(self):
         lineas = [f'<SeccionDescargables> {self.mensaje}']

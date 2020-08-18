@@ -7,7 +7,6 @@ class Pagina(Base):
     def __init__(self, config, ruta, nivel):
         super().__init__(config, ruta)
         self.nivel = nivel
-        self.secciones = []
 
     def alimentar(self):
         """ Alimentar """
@@ -15,10 +14,6 @@ class Pagina(Base):
         if self.ya_alimentado is False:
             # Levantar bandera
             self.ya_alimentado = True
-
-    def contenido(self):
-        """ Contenido """
-        return('Hola Mundo!')
 
     def __repr__(self):
         lineas = [f'<Pagina> {self.relativo}']

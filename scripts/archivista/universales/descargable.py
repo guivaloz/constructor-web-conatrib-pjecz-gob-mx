@@ -20,8 +20,9 @@ class Descargable(object):
             self.ya_alimentado = True  # Levantar la bandera
 
     def contenido(self):
-        """ Contenido """
-        return('Hola Mundo!')
+        """ Contenido entrega texto markdown como listado de vínculos """
+        url = self.config.almacen_frio_url + str(self.ruta)[len(self.config.nextcloud_ruta):]
+        return(f'- [{self.nombre}]({url})')
 
     def __repr__(self):
         return('  ' * self.nivel + f'<Descargable> {self.nombre}')

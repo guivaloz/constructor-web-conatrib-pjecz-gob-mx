@@ -36,8 +36,14 @@ class Subdirectorio(object):
             self.ya_alimentado = True
 
     def contenido(self):
-        """ Contenido """
-        return('Hola Mundo!')
+        """ Contenido entrega texto markdown """
+        lineas = []
+        lineas.append('#' * self.nivel + ' ' + self.nombre)
+        lineas.append('')
+        if self.descargables is not None:
+            lineas.extend(descargable.contenido() for descargable in self.descargables)
+            lineas.append('')
+        return('\n'.join(lineas))
 
     def __repr__(self):
         lineas = [f'<Subdirectorio> {self.nombre}']
