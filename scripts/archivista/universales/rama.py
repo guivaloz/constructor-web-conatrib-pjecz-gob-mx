@@ -20,7 +20,7 @@ class Rama(Base):
 
     def alimentar(self):
         """ Alimentar """
-        super().alimentar()
+        hay_secciones = super().alimentar()
         if self.ya_alimentado is False:
             # Rastrear directorios en la rama
             for directorio in self.rastrear_directorios(self.config.insumos_ruta):
@@ -36,6 +36,8 @@ class Rama(Base):
                     pass
             # Levantar bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay secciones o páginas
+        return(hay_secciones or len(self.paginas) > 0)
 
     def crear(self):
         """ Crear """

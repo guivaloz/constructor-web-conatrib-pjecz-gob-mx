@@ -22,6 +22,8 @@ class SeccionFinal(object):
             # ¿Hay o no hay?
             # Levantar la bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay
+        return(self.contenidos is not None)
 
     def contenido(self):
         return('Hola Mundo!')

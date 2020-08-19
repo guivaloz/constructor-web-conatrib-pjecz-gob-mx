@@ -27,20 +27,19 @@ class Base(object):
         if self.ya_alimentado is False:
             # Sección Inicial
             seccion_inicial = SeccionInicial(self.config, self.ruta, self.nivel + 1)
-            seccion_inicial.alimentar()
-            if seccion_inicial.contenidos is not None:
+            if seccion_inicial.alimentar():
                 self.secciones.append(seccion_inicial)
             # Sección Descargables
             seccion_descargables = SeccionDescargables(self.config, self.ruta, self.nivel + 1)
-            seccion_descargables.alimentar()
-            if seccion_descargables.contenidos is not None:
+            if seccion_descargables.alimentar():
                 self.secciones.append(seccion_descargables)
             # Sección Subdirectorios
             seccion_subdirectorios = SeccionSubdirectorios(self.config, self.ruta, self.nivel + 1)
-            seccion_subdirectorios.alimentar()
-            if seccion_subdirectorios.contenidos is not None:
+            if seccion_subdirectorios.alimentar():
                 self.secciones.append(seccion_subdirectorios)
             # Sección Final
+        # Entregar verdadero si hay secciones
+        return(len(self.secciones) > 0)
 
     def contenido(self):
         """ Entregar contenido que es texto markdown """

@@ -36,6 +36,8 @@ class SeccionDescargables(object):
                 self.mensaje = 'NO HAY DESCARGABLES'
             # Levantar la bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay
+        return(self.contenidos is not None)
 
     def contenido(self):
         """ Entregar el contenido que es texto markdown con las descargas """

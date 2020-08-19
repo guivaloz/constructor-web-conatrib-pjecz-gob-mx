@@ -10,10 +10,12 @@ class Pagina(Base):
 
     def alimentar(self):
         """ Alimentar """
-        super().alimentar()
+        hay_secciones = super().alimentar()
         if self.ya_alimentado is False:
             # Levantar bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay secciones
+        return(hay_secciones)
 
     def __repr__(self):
         lineas = [f'<Pagina> {self.relativo}']

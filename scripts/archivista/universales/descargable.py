@@ -11,18 +11,23 @@ class Descargable(object):
         else:
             self.ruta = ruta
         self.nivel = nivel
-        self.nombre = self.ruta.name  # Definir nombre del descargable
         self.ya_alimentado = False
+        self.nombre = self.ruta.name
 
     def alimentar(self):
         """ Alimentar """
         if self.ya_alimentado is False:
             self.ya_alimentado = True  # Levantar la bandera
+        # Entregar verdadero si hay
+        return(True)
 
     def contenido(self):
-        """ Contenido entrega texto markdown como listado de vínculos """
-        url = self.config.almacen_frio_url + str(self.ruta)[len(self.config.nextcloud_ruta):]
-        return(f'- [{self.nombre}]({url})')
+        """ Contenido entrega texto markdown """
+        if self.ya_alimentado:
+            url = self.config.almacen_frio_url + str(self.ruta)[len(self.config.nextcloud_ruta):]
+            return(f'- [{self.nombre}]({url})')
+        else:
+            return('')
 
     def __repr__(self):
-        return('  ' * self.nivel + f'<Descargable> {self.nombre}')
+        return('  ' * self.nivel + '<Descargable> ' + self.nombre)

@@ -12,9 +12,9 @@ class Subdirectorio(object):
         else:
             self.ruta = ruta
         self.nivel = nivel
+        self.ya_alimentado = False
         self.nombre = self.ruta.parts[-1]
         self.descargables = None
-        self.ya_alimentado = False
 
     def alimentar(self):
         """ Alimentar """
@@ -30,20 +30,23 @@ class Subdirectorio(object):
                     descargable = Descargable(self.config, item, self.nivel + 1)
                     descargable.alimentar()
                     self.descargables.append(descargable)
-            else:
-                self.descargables = None
             # Levantar la bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay
+        return(self.descargables is not None)
 
     def contenido(self):
         """ Contenido entrega texto markdown """
-        lineas = []
-        lineas.append('#' * self.nivel + ' ' + self.nombre)
-        lineas.append('')
-        if self.descargables is not None:
-            lineas.extend(descargable.contenido() for descargable in self.descargables)
+        if self.ya_alimentado:
+            lineas = []
+            lineas.append('#' * self.nivel + ' ' + self.nombre)
             lineas.append('')
-        return('\n'.join(lineas))
+            if self.descargables is not None:
+                lineas.extend(descargable.contenido() for descargable in self.descargables)
+                lineas.append('')
+            return('\n'.join(lineas))
+        else:
+            return('')
 
     def __repr__(self):
         lineas = [f'<Subdirectorio> {self.nombre}']

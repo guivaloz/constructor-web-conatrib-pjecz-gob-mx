@@ -1,4 +1,6 @@
 from pathlib import Path
+from universales.archivo import Archivo
+from universales.indice import Indice
 
 
 class SeccionInicial(object):
@@ -18,27 +20,32 @@ class SeccionInicial(object):
     def alimentar(self):
         """ Alimentar """
         if self.ya_alimentado is False:
-            # Definir nombre del archivo md
-            if self.ruta == self.config.insumos_ruta:
-                archivo_md_nombre = '{}.md'.format(self.config.titulo)
+            # Intentar encontrar archivo md inicial
+            archivo = Archivo(self.config, self.ruta, self.nivel)
+            if archivo.alimentar():
+                # Contenido es el archivo.md
+                self.contenidos = archivo
+                self.mensaje = archivo.archivo_nombre
             else:
-                archivo_md_nombre = '{}.md'.format(self.ruta.parts[-1])
-            archivo_md_ruta = Path(self.ruta, archivo_md_nombre)
-            # ¿Existe o no?
-            if archivo_md_ruta.exists() and archivo_md_ruta.is_file():
-                self.contenidos = archivo_md_ruta
-                self.mensaje = archivo_md_nombre
-            else:
-                self.contenidos = None
-                self.mensaje = f'NO EXISTE {archivo_md_nombre}'
+                # Intentar crear un índice de los archivos.md en los subdirectorios
+                indice = Indice(self.config, self.ruta, self.nivel)
+                if indice.alimentar():
+                    # Contenido es el índice
+                    self.contenidos = indice
+                    self.mensaje = 'Índice con {} vínculos'.format(len(indice.vinculos))
+                else:
+                    # No hay contenido :(
+                    self.contenidos = None
+                    self.mensaje = f'NO EXISTE ARCHIVO MD'
             # Levantar la bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay
+        return(self.contenidos is not None)
 
     def contenido(self):
         """ Entregar el contenido que es el markdown que está en el archivo """
         if self.contenidos is not None:
-            with open(str(self.contenidos), 'r') as puntero:
-                return(puntero.read())
+            return(self.contenidos.contenido())
         else:
             return('SIN CONTENIDO')  # Esto no debería entregarse
 

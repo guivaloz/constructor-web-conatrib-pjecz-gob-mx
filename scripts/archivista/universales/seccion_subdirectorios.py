@@ -45,6 +45,8 @@ class SeccionSubdirectorios(object):
                 self.mensaje = 'NO HAY SUBDIRECTORIOS'
             # Levantar la bandera
             self.ya_alimentado = True
+        # Entregar verdadero si hay
+        return(self.contenidos is not None)
 
     def contenido(self):
         """ Entregar contenido que es texto markdown """
