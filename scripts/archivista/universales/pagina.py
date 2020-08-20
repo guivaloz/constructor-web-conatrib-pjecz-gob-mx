@@ -18,7 +18,8 @@ class Pagina(Base):
         return(hay_secciones)
 
     def __repr__(self):
-        lineas = [f'<Pagina> {self.relativo}']
+        lineas = []
+        lineas.append(f'<Pagina> {self.relativo}')
         if len(self.secciones) > 0:
-            lineas += [repr(seccion) for seccion in self.secciones]
+            lineas.extend([repr(seccion) for seccion in self.secciones])
         return('  ' * self.nivel + '\n'.join(lineas))

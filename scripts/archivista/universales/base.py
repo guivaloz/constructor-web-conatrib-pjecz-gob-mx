@@ -4,6 +4,7 @@ from comunes.funciones import cambiar_a_ruta_segura
 from universales.seccion_inicial import SeccionInicial
 from universales.seccion_descargables import SeccionDescargables
 from universales.seccion_subdirectorios import SeccionSubdirectorios
+from universales.seccion_final import SeccionFinal
 
 
 class Base(object):
@@ -38,6 +39,9 @@ class Base(object):
             if seccion_subdirectorios.alimentar():
                 self.secciones.append(seccion_subdirectorios)
             # Sección Final
+            seccion_final = SeccionFinal(self.config, self.ruta, self.nivel + 1)
+            if seccion_final.alimentar():
+                self.secciones.append(seccion_final)
         # Entregar verdadero si hay secciones
         return(len(self.secciones) > 0)
 

@@ -1,4 +1,5 @@
 from pathlib import Path
+from universales.archivo_md import ArchivoMd
 
 
 class SeccionFinal(object):
@@ -19,14 +20,29 @@ class SeccionFinal(object):
         """ Alimentar """
         if self.ya_alimentado is False:
             # Buscar archivos md
+            archivo_md_inicial_nombre = self.ruta.parts[-1] + '.md'
+            archivos = []
+            for item in self.ruta.glob('*.md'):
+                if item.is_file():
+                    archivo = ArchivoMd(self.config, item, self.nivel + 1)
+                    if archivo.alimentar():
+                        # Omitir si archivo md inicial
+                        if archivo.archivo_md_nombre != archivo_md_inicial_nombre:
+                            archivos.append(archivo)
             # ¿Hay o no hay?
+            if len(archivos) > 0:
+                self.contenidos = archivos
             # Levantar la bandera
             self.ya_alimentado = True
         # Entregar verdadero si hay
         return(self.contenidos is not None)
 
     def contenido(self):
-        return('Hola Mundo!')
+        """ Contenido """
+        if self.contenidos is not None:
+            return('\n'.join([archivo.contenido() for archivo in self.contenidos]))
+        else:
+            return('SIN CONTENIDO')  # Esto no debería entregarse
 
     def __repr__(self):
         lineas = ['<SeccionFinal>']

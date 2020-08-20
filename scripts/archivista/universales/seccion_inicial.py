@@ -1,5 +1,5 @@
 from pathlib import Path
-from universales.archivo import Archivo
+from universales.archivo_md_inicial import ArchivoMdInicial
 from universales.indice import Indice
 
 
@@ -21,14 +21,14 @@ class SeccionInicial(object):
         """ Alimentar """
         if self.ya_alimentado is False:
             # Intentar encontrar archivo md inicial
-            archivo = Archivo(self.config, self.ruta, self.nivel)
+            archivo = ArchivoMdInicial(self.config, self.ruta, self.nivel + 1)
             if archivo.alimentar():
                 # Contenido es el archivo.md
                 self.contenidos = archivo
-                self.mensaje = archivo.archivo_nombre
+                self.mensaje = archivo.archivo_md_nombre
             else:
                 # Intentar crear un índice de los archivos.md en los subdirectorios
-                indice = Indice(self.config, self.ruta, self.nivel)
+                indice = Indice(self.config, self.ruta, self.nivel + 1)
                 if indice.alimentar():
                     # Contenido es el índice
                     self.contenidos = indice

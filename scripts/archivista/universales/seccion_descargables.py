@@ -28,8 +28,8 @@ class SeccionDescargables(object):
                 self.contenidos = []
                 for item in items:
                     descargable = Descargable(self.config, item, self.nivel + 1)
-                    descargable.alimentar()
-                    self.contenidos.append(descargable)
+                    if descargable.alimentar():
+                        self.contenidos.append(descargable)
                 self.mensaje = 'Descargar'
             else:
                 self.contenidos = None

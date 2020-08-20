@@ -11,29 +11,27 @@ class Rama(Base):
         self.nivel = 0
         self.paginas = []
 
-    def rastrear_directorios(self, ruta):
-        """ Rastrear directorios """
+    def rastrear_directorios_con_md_igual(self, ruta):
+        """ Rastrear directorios con archivos.md de igual nombre que el directorio """
         for item in ruta.glob('*'):
             if item.is_dir():
-                yield item
-                yield from self.rastrear_directorios(item)
+                # Si tiene dentro un archivo <directorio>.md se acumula
+                posible_md_nombre = item.parts[-1] + '.md'
+                posible_md_ruta = Path(item, posible_md_nombre)
+                if posible_md_ruta.exists() and posible_md_ruta.is_file():
+                    yield item
+                # Ser recursivo
+                yield from self.rastrear_directorios_con_md_igual(item)
 
     def alimentar(self):
         """ Alimentar """
         hay_secciones = super().alimentar()
         if self.ya_alimentado is False:
-            # Rastrear directorios en la rama
-            for directorio in self.rastrear_directorios(self.config.insumos_ruta):
-                posible_md_nombre = str(directorio.parts[-1]) + '.md'
-                posible_md_ruta = Path(str(directorio), posible_md_nombre)
-                if posible_md_ruta.exists() and posible_md_ruta.is_file():
-                    # Acumular páginas
-                    pagina = Pagina(self.config, directorio, self.nivel + 1)
-                    pagina.alimentar()
+            # Acumular páginas
+            for directorio in self.rastrear_directorios_con_md_igual(self.config.insumos_ruta):
+                pagina = Pagina(self.config, directorio, self.nivel + 1)
+                if pagina.alimentar():
                     self.paginas.append(pagina)
-                else:
-                    # Acumular secciones de descargas
-                    pass
             # Levantar bandera
             self.ya_alimentado = True
         # Entregar verdadero si hay secciones o páginas
@@ -47,9 +45,10 @@ class Rama(Base):
         return('  ' * self.nivel + '\n'.join(lineas))
 
     def __repr__(self):
-        lineas = [f'<Rama> {self.relativo}']
+        lineas = []
+        lineas.append(f'<Rama> {self.relativo}')
         if len(self.secciones) > 0:
-            lineas += [repr(seccion) for seccion in self.secciones]
+            lineas.extend([repr(seccion) for seccion in self.secciones])
         if len(self.paginas) > 0:
-            lineas += [repr(pagina) for pagina in self.paginas]
+            lineas.extend([repr(pagina) for pagina in self.paginas])
         return('  ' * self.nivel + '\n'.join(lineas))
