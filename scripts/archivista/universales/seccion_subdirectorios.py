@@ -24,8 +24,8 @@ class SeccionSubdirectorios(object):
                 nombre = item.parts[-1]
                 posible_md_ruta = Path(self.ruta, nombre, f'{nombre}.md')
                 if not(posible_md_ruta.exists() and posible_md_ruta.is_file()):
-                    # Ser recursivo
                     yield (item, nivel)
+                    # Ser recursivo
                     yield from self.rastrear_directorios(item, nivel + 1)
 
     def alimentar(self):
