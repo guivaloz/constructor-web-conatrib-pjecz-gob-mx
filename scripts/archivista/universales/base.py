@@ -1,6 +1,6 @@
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
-from comunes.funciones import cambiar_a_ruta_segura
+from comunes.funciones import cambiar_a_identificador, cambiar_a_ruta_segura, obtener_metadatos_del_nombre
 from universales.seccion_inicial import SeccionInicial
 from universales.seccion_descargables import SeccionDescargables
 from universales.seccion_subdirectorios import SeccionSubdirectorios
@@ -68,19 +68,23 @@ class Base(object):
 
     def crear(self):
         """ Crear archivo md """
+        # Metadatos
+        nombre = self.ruta.parts[-1]
+        fecha_hora, titulo = obtener_metadatos_del_nombre(nombre, self.config.fecha_por_defecto)
+        slug = cambiar_a_identificador(self.relativo[1:])  # Le quitamos el primer caracter que siempre es una diagonal
         # Elaborar contenido con la plantilla
         if self.plantilla is None:
             self.preparar_plantilla()
         content = self.plantilla.render(
-            title='Título',
-            slug='slug',
+            title=titulo,
+            slug=slug,
             summary='resumen',
             category='Categoría',
             tags='etiquetas',
             url='url',
             save_as='guardar_como_ruta',
-            date='2020-08-15 12:00',
-            modified='2020-08-15 12:00',
+            date=fecha_hora,
+            modified=fecha_hora,
             content=self.contenido(),
         )
         # Crear directorio
