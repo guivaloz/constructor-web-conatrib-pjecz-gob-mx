@@ -49,7 +49,8 @@ class Subdirectorio(object):
             return('')
 
     def __repr__(self):
-        lineas = [f'<Subdirectorio> {self.nombre}']
+        lineas = []
+        lineas.append(f'<Subdirectorio> {self.nombre}')
         if self.descargables is not None:
-            lineas += [repr(descargable) for descargable in self.descargables]
+            lineas.extend([repr(descargable) for descargable in self.descargables])
         return('  ' * self.nivel + '\n'.join(lineas))

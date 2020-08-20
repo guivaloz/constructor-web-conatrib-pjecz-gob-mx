@@ -45,5 +45,8 @@ class SeccionFinal(object):
             return('SIN CONTENIDO')  # Esto no debería entregarse
 
     def __repr__(self):
-        lineas = ['<SeccionFinal>']
+        lineas = []
+        lineas.append(f'<SeccionFinal> {self.mensaje}')
+        if self.contenidos is not None:
+            lineas.extend([repr(archivo) for archivo in self.contenidos])
         return('  ' * self.nivel + '\n'.join(lineas))

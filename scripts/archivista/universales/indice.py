@@ -47,8 +47,14 @@ class Indice(object):
         """ Contenido entrega texto markdown """
         if self.ya_alimentado and self.vinculos is not None:
             lineas = []
-            for etiqueta, relativo in self.vinculos.items():
-                lineas.append(f'- [{etiqueta}]({relativo})')
+            if len(self.vinculos) > 8:
+                for etiqueta, relativo in self.vinculos.items():
+                    lineas.append(f'- [{etiqueta}]({relativo})')
+                lineas.append('')
+            else:
+                for etiqueta, relativo in self.vinculos.items():
+                    lineas.append('#' * self.nivel + f' [{etiqueta}]({relativo})')
+                    lineas.append('')
             return('\n'.join(lineas))
         else:
             return('')

@@ -50,4 +50,8 @@ class SeccionInicial(object):
             return('SIN CONTENIDO')  # Esto no debería entregarse
 
     def __repr__(self):
-        return('  ' * self.nivel + f'<SeccionInicial> {self.mensaje}')
+        lineas = []
+        lineas.append(f'<SeccionInicial> {self.mensaje}')
+        if self.contenidos is not None:
+            lineas.append(repr(self.contenidos))
+        return('  ' * self.nivel + '\n'.join(lineas))

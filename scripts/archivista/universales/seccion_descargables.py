@@ -52,7 +52,8 @@ class SeccionDescargables(object):
             return('SIN DESCARGABLES')  # Esto no debería entregarse
 
     def __repr__(self):
-        lineas = [f'<SeccionDescargables> {self.mensaje}']
+        lineas = []
+        lineas.append(f'<SeccionDescargables> {self.mensaje}')
         if self.contenidos is not None:
-            lineas += [repr(contenido) for contenido in self.contenidos]
+            lineas.extend([repr(descargable) for descargable in self.contenidos])
         return('  ' * self.nivel + '\n'.join(lineas))

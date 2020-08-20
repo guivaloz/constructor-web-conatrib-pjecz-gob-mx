@@ -44,4 +44,4 @@ class ArchivoMdInicial(object):
             return('')
 
     def __repr__(self):
-        return('  ' * self.nivel + '<ArchivoMdInicial> ' + self.archivo_md_nombre)
+        return('  ' * self.nivel + f'<ArchivoMdInicial> {self.archivo_md_nombre}')

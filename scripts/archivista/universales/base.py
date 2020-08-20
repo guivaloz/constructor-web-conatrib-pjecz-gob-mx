@@ -72,17 +72,19 @@ class Base(object):
         nombre = self.ruta.parts[-1]
         fecha_hora, titulo = obtener_metadatos_del_nombre(nombre, self.config.fecha_por_defecto)
         slug = cambiar_a_identificador(self.relativo[1:])  # Le quitamos el primer caracter que siempre es una diagonal
+        # directorio = cambiar_a_identificador(self.config.titulo) + '/'
+        url = cambiar_a_ruta_segura(self.relativo[1:] + '/')
+        guardar_como = url + 'index.html'
         # Elaborar contenido con la plantilla
         if self.plantilla is None:
             self.preparar_plantilla()
         content = self.plantilla.render(
             title=titulo,
             slug=slug,
-            summary='resumen',
-            category='Categoría',
-            tags='etiquetas',
-            url='url',
-            save_as='guardar_como_ruta',
+            summary='.',
+            category=self.config.titulo,
+            url=url,
+            save_as=guardar_como,
             date=fecha_hora,
             modified=fecha_hora,
             content=self.contenido(),

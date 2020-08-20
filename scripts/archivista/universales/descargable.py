@@ -30,4 +30,4 @@ class Descargable(object):
             return('')
 
     def __repr__(self):
-        return('  ' * self.nivel + '<Descargable> ' + self.nombre)
+        return('  ' * self.nivel + f'<Descargable> {self.nombre}')

@@ -56,7 +56,8 @@ class SeccionSubdirectorios(object):
             return('SIN SUBDIRECTORIOS')  # Esto no debería entregarse
 
     def __repr__(self):
-        lineas = [f'<SeccionSubdirectorios> {self.mensaje}']
+        lineas = []
+        lineas.append(f'<SeccionSubdirectorios> {self.mensaje}')
         if self.contenidos is not None:
-            lineas += [repr(contenido) for contenido in self.contenidos]
+            lineas.extend([repr(subdirectorio) for subdirectorio in self.contenidos])
         return('  ' * self.nivel + '\n'.join(lineas))
