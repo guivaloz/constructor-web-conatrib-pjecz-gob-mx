@@ -32,9 +32,9 @@ class SeccionSubdirectorios(object):
         if self.ya_alimentado is False:
             # Rastrear subdirectorios
             subdirectorios = []
-            for item, nivel in self.rastrear_directorios(self.ruta, self.nivel + 1):
-                subdirectorio = Subdirectorio(self.config, item, nivel)
-                subdirectorio.alimentar()  # Los subdirectorios siempre deben de alimentarse aunque no tengan descargables
+            for ruta, nivel in self.rastrear_directorios(self.ruta, self.nivel + 1):
+                subdirectorio = Subdirectorio(self.config, ruta, nivel)
+                subdirectorio.alimentar(base_ruta=self.ruta)  # Los subdirectorios siempre deben de alimentarse aunque no tengan descargables
                 subdirectorios.append(subdirectorio)
             # ¿Hay o no hay?
             if len(subdirectorios) > 0:

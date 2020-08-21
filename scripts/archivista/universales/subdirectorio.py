@@ -17,12 +17,14 @@ class Subdirectorio(object):
         self.nombre = self.ruta.parts[-1]
         self.contenidos = None
 
-    def alimentar(self):
+    def alimentar(self, base_ruta=None):
         """ Alimentar """
+        if base_ruta is None:
+            base_ruta = self.ruta
         if self.ya_alimentado is False:
             # Buscar archivo md que se llame igual que el directorio
             vinculo_relativo = VinculoRelativo(self.config, self.ruta, self.nivel + 1)
-            if vinculo_relativo.alimentar():
+            if vinculo_relativo.alimentar(base_ruta=base_ruta):
                 self.contenidos = [vinculo_relativo]
             else:
                 # No hay, entonces buscar descargables
@@ -45,11 +47,14 @@ class Subdirectorio(object):
         """ Contenido entrega texto markdown """
         if self.ya_alimentado:
             lineas = []
-            lineas.append('#' * self.nivel + ' ' + self.nombre)
-            lineas.append('')
-            if self.contenidos is not None:
-                lineas.extend(item.contenido() for item in self.contenidos)
+            if self.contenidos is not None and len(self.contenidos) == 1 and isinstance(self.contenidos[0], VinculoRelativo):
+                lineas.append(self.contenidos[0].contenido())
+            else:
+                lineas.append('#' * self.nivel + ' ' + self.nombre)
                 lineas.append('')
+                if self.contenidos is not None:
+                    lineas.extend(item.contenido() for item in self.contenidos)
+                    lineas.append('')
             return('\n'.join(lineas))
         else:
             return('')
