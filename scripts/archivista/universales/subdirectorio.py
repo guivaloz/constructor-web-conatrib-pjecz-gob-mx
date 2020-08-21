@@ -50,11 +50,11 @@ class Subdirectorio(object):
             if self.contenidos is not None and len(self.contenidos) == 1 and isinstance(self.contenidos[0], VinculoRelativo):
                 lineas.append(self.contenidos[0].contenido())
             else:
+                lineas.append('')
                 lineas.append('#' * self.nivel + ' ' + self.nombre)
                 lineas.append('')
                 if self.contenidos is not None:
                     lineas.extend(item.contenido() for item in self.contenidos)
-                    lineas.append('')
             return('\n'.join(lineas))
         else:
             return('')

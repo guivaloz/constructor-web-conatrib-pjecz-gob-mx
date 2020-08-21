@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from comunes.funciones import cambiar_a_identificador, cambiar_a_ruta_segura, obtener_metadatos_del_nombre
@@ -72,7 +73,6 @@ class Base(object):
         nombre = self.ruta.parts[-1]
         fecha_hora, titulo = obtener_metadatos_del_nombre(nombre, self.config.fecha_por_defecto)
         slug = cambiar_a_identificador(self.relativo[1:])  # Le quitamos el primer caracter que siempre es una diagonal
-        # directorio = cambiar_a_identificador(self.config.titulo) + '/'
         url = cambiar_a_ruta_segura(self.relativo[1:] + '/')
         guardar_como = url + 'index.html'
         # Elaborar contenido con la plantilla
@@ -97,6 +97,12 @@ class Base(object):
         destino_md_ruta = Path(destino_directorio_ruta, f'{nombre}.md')
         with open(destino_md_ruta, 'w') as puntero:
             puntero.write(content)
+        # Copiar imágenes
+        imagenes_rutas = []
+        for extension in self.config.imagenes_extensiones:
+            imagenes_rutas.extend(list(self.ruta.glob(f'*.{extension}')))
+        for imagen_ruta in imagenes_rutas:
+            shutil.copyfile(imagen_ruta, Path(destino_directorio_ruta, imagen_ruta.name))
         # Entregar línea para la terminal
         return(str(destino_md_ruta)[len(str(self.config.salida_ruta)):])
 
