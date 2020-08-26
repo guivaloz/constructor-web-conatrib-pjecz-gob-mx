@@ -1,7 +1,9 @@
 #
 # publishconf.py
 #
-
+import os
+import sys
+sys.path.append(os.curdir)
 from pelicanconf import *
 
 # Para producción los URLs son absolutos

@@ -7,7 +7,7 @@ SITEURL = 'http://localhost:8000'
 RELATIVE_URLS = False
 
 # Metadatos de todo el sitio web
-SITENAME = 'CONATRIB'
+SITENAME = 'Unidad de Derechos Humanos e Igualdad de Género de CONATRIB'
 SITELOGO = 'theme/images/conatrib.jpg'
 SITEDESCRIPTION = '.'
 SITETWITTER = '@PJCoah'
@@ -19,18 +19,23 @@ AUTHOR = 'PJECZ'
 PATH = 'content'
 
 # Directorios que tienen los articulos
-ARTICLE_PATHS = [
-    'actividades',
-]
+ARTICLE_PATHS = []
 
 # Directorios que tienen páginas fijas, no artículos
 PAGE_PATHS = [
-    'conocenos',
+    'actividades',
+    'acuerdos',
+    'biblioteca-digital',
+    'directorio-de-unidades-conatrib',
 ]
 
 # Directorios y archivos que son fijos
 # Agregue también los directorios que tienen archivos para artículos y páginas
 STATIC_PATHS = [
+    'actividades',
+    'acuerdos',
+    'biblioteca-digital',
+    'directorio-de-unidades-conatrib',
     'favicon.ico',
     'LICENSE',
     'README.md',
@@ -91,42 +96,48 @@ USE_REMOTE_SERVICES = False
 # NEST Template
 #
 THEME = 'themes/nest'
-SITESUBTITLE = 'Sitio web del CONATRIB'
+SITESUBTITLE = ''
 
 # Minified CSS
 NEST_CSS_MINIFY = True
 
 # Add items to top menu before pages
 MENUITEMS = [
-    ('Homepage', '/'),
-    ('Categories', '/categories.html'),
+    ('Actividades', '/actividades/'),
+    ('Acuerdos', '/acuerdos/'),
+    ('Biblioteca', '/biblioteca-digital/'),
+    ('Directorio', '/directorio-de-unidades-conatrib/'),
+    ('Sentencias', '#'),
 ]
+DISPLAY_PAGES_ON_MENU = False
 
 # Add header background image from content/images : 'background.jpg'
 NEST_HEADER_IMAGES = ''
-NEST_HEADER_LOGO = 'images/favicon.png'
+NEST_HEADER_LOGO = '/theme/images/conatrib-100x100.png'
 
 # Footer
 NEST_SITEMAP_COLUMN_TITLE = 'Mapa del sitio'
-NEST_SITEMAP_MENU = [
-    ('Archives', '/archives.html'),
-    ('Tags', '/tags.html'),
-    ('Authors', '/authors.html'),
+NEST_SITEMAP_MENU = MENUITEMS
+NEST_SITEMAP_ATOM_LINK = False
+NEST_SITEMAP_RSS_LINK = False
+NEST_SOCIAL_COLUMN_TITLE = 'Redes Sociales'
+SOCIAL = [
+    ('Twitter', 'https://twitter.com/udhg_CONATRIB'),
 ]
-NEST_SITEMAP_ATOM_LINK = 'Atom Feed'
-NEST_SITEMAP_RSS_LINK = 'RSS Feed'
-NEST_SOCIAL_COLUMN_TITLE = 'Social'
-NEST_LINKS_COLUMN_TITLE = 'Links'
-NEST_COPYRIGHT = '&copy; PJECZ 2020'
+NEST_LINKS_COLUMN_TITLE = 'Sitios recomendados'
+LINKS = [
+    ('PJECZ', 'https://www.pjecz.gob.mx')
+]
+NEST_COPYRIGHT = 'Poder Judicial del Estado de Coahuila de Zaragoza &copy; 2020'
 
 # Footer optional
 NEST_FOOTER_HTML = ''
 
 # index.html
-NEST_INDEX_HEAD_TITLE = 'Homepage'
-NEST_INDEX_HEADER_TITLE = 'My Awesome Blog'
-NEST_INDEX_HEADER_SUBTITLE = 'Smashing The Stack For Fun And Profit'
-NEST_INDEX_CONTENT_TITLE = 'Last Posts'
+NEST_INDEX_HEAD_TITLE = 'U. de DD.HH. e Igualdad de Género de CONATRIB'
+NEST_INDEX_HEADER_TITLE = SITENAME
+NEST_INDEX_HEADER_SUBTITLE = 'Comisión Nacional de Tribunales Superiores de Justicia (CONATRIB)'
+NEST_INDEX_CONTENT_TITLE = 'Últimas Publicaciones'
 
 # archives.html
 NEST_ARCHIVES_HEAD_TITLE = 'Archives'

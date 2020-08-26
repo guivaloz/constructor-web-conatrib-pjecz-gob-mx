@@ -28,30 +28,42 @@
 {% endblock header %}
 
 {% block content %}
-    {% if DEFAULT_PAGINATION %}    
+    {% if output_file == 'index.html' %}
     <div class="archive-container">
         <div class="container content archive">
-            <h2><a href="{{ SITEURL }}/{{ articles_page.url }}">{{ NEST_INDEX_CONTENT_TITLE }} {% if articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</a></h2>
-            <dl class="dl-horizontal">
-                {% for article in articles_page.object_list %}
-                <dt>{{ article.locale_date}}</dt>
-                <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
-                {% endfor %}
-            </dl>
+          <p>Las mujeres y las niñas representan a la mitad de la población mundial y por consiguiente la mitad de su potencial.</p>
+          <p>La igualdad es un derecho humano fundamental imprescindible para lograr sociedades pacíficas y con pleno desarrollo humano y, en esa ruta, la igualdad de género impulsa el empoderamiento de las mujeres a fin de estimular la productividad y el crecimiento económico, así como la erradicación de desigualdades que generan discriminación.</p>
+          <p>Para impulsar acciones en aquel contexto, la Comisión Nacional de Tribunales Superiores de Justicia (CONATRIB) cuenta dentro de su estructura con una unidad encargada, entre otras cosas, de unificar criterios y brindar capacitación, así como apoyo a los poderes judiciales locales para que en ámbito de sus atribuciones garanticen el efectivo acceso a la justicia a todas aquellas mujeres que se vean involucradas en algún proceso judicial sin importar la materia.</p>
+          <p>Aunado a lo anterior, esta Unidad de Derechos Humanos e Igualdad de Género de CONATRIB, se ha dado a la tarea de concentrar diversa información de utilidad para la población y, que está disponible en este sitio para su consulta.</p>
+          <p>Lo invitamos a navegar en este sitio para conocer nuestro contenido.</p>
         </div>
     </div>
-    {% include 'pagination.html' %}
     {% else %}
-    <div class="archive-container">
-        <div class="container content archive">
-            <h2><a href="{{ SITEURL }}/">{{ NEST_INDEX_CONTENT_TITLE }}</a></h2>
-            <dl class="dl-horizontal">
-                {% for article in articles %}
-                <dt>{{ article.locale_date}}</dt>
-                <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
-                {% endfor %}
-            </dl>
-        </div>
-    </div>
+      {% if DEFAULT_PAGINATION %}
+      <div class="archive-container">
+          <div class="container content archive">
+              <h2><a href="{{ SITEURL }}/{{ articles_page.url }}">{{ NEST_INDEX_CONTENT_TITLE }} {% if articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</a></h2>
+              <dl class="dl-horizontal">
+                  {% for article in articles_page.object_list %}
+                  <dt>{{ article.locale_date}}</dt>
+                  <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+                  {% endfor %}
+              </dl>
+          </div>
+      </div>
+      {% include 'pagination.html' %}
+      {% else %}
+      <div class="archive-container">
+          <div class="container content archive">
+              <h2><a href="{{ SITEURL }}/">{{ NEST_INDEX_CONTENT_TITLE }}</a></h2>
+              <dl class="dl-horizontal">
+                  {% for article in articles %}
+                  <dt>{{ article.locale_date}}</dt>
+                  <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+                  {% endfor %}
+              </dl>
+          </div>
+      </div>
+      {% endif %}
     {% endif %}
 {% endblock content %}
