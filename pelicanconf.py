@@ -10,7 +10,7 @@ RELATIVE_URLS = False
 SITENAME = 'Unidad de Derechos Humanos e Igualdad de Género de CONATRIB'
 SITELOGO = 'theme/images/conatrib.jpg'
 SITEDESCRIPTION = '.'
-SITETWITTER = '@PJCoah'
+SITETWITTER = '@udhg_CONATRIB'
 
 # Autor por defecto
 AUTHOR = 'PJECZ'
@@ -95,6 +95,7 @@ USE_REMOTE_SERVICES = False
 #
 # NEST Template
 #
+
 THEME = 'themes/nest'
 SITESUBTITLE = ''
 

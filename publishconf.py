@@ -63,3 +63,11 @@ LOAD_CONTENT_CACHE = True
 
 # Para producción SI hay cargas desde Internet
 USE_REMOTE_SERVICES = True
+
+#
+# NEST Template
+#
+
+# Footer
+NEST_SITEMAP_ATOM_LINK = 'ATOM feed'
+NEST_SITEMAP_RSS_LINK = 'RSS feed'

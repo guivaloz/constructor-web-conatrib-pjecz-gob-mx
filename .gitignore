@@ -12,9 +12,8 @@ __pycache__
 *.xlsx
 *.zip
 output
-settings.ini
 content/actividades
 content/acuerdos
 content/biblioteca-digital
-content/conocenos
+content/directorio-de-unidades-conatrib
 content/sentencias
