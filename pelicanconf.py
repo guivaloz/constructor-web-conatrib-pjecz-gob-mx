@@ -36,6 +36,7 @@ STATIC_PATHS = [
     'acuerdos',
     'biblioteca-digital',
     'directorio-de-unidades-conatrib',
+    'CNAME',
     'favicon.ico',
     'LICENSE',
     'README.md',
