@@ -26,7 +26,9 @@ PAGE_PATHS = [
     'actividades',
     'acuerdos',
     'biblioteca-digital',
+    'capacitaciones',
     'directorio-de-unidades-conatrib',
+    'sentencias',
 ]
 
 # Directorios y archivos que son fijos
@@ -35,7 +37,9 @@ STATIC_PATHS = [
     'actividades',
     'acuerdos',
     'biblioteca-digital',
+    'capacitaciones',
     'directorio-de-unidades-conatrib',
+    'sentencias',
     'CNAME',
     'favicon.ico',
     'LICENSE',
@@ -109,7 +113,8 @@ MENUITEMS = [
     ('Acuerdos', '/acuerdos/'),
     ('Biblioteca', '/biblioteca-digital/'),
     ('Directorio', '/directorio-de-unidades-conatrib/'),
-    ('Sentencias', '#'),
+    ('Capacitaciones', '/capacitaciones/'),
+    ('Sentencias', '/sentencias/'),
 ]
 DISPLAY_PAGES_ON_MENU = False
 

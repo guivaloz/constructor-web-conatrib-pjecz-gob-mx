@@ -1,8 +1,9 @@
 .directory
+.vscode
 .~lock.*
-*.egg-info
-*.pyc
 __pycache__
+*.egg-info/
+*.pyc
 *.doc
 *.docx
 *.pdf
